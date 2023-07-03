@@ -26,8 +26,6 @@ public class FrmEstudiante extends javax.swing.JFrame {
      * de los elemetos de la tabla, evento mauseClicked.
      */
     
-    /**HOLAAAAAAA*/
-    
     estudianteController estudiante = new estudianteController();
     public List<Estudiante> listaEstudiante = estudiante.listaEstudiante();
     public int idEstudiante;
