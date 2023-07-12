@@ -5,7 +5,6 @@
 package view;
 
 import controller.estudianteController;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -273,15 +272,7 @@ public class FrmEstudiante extends javax.swing.JFrame {
     }
 
     private void cargarTabla() {
-        DefaultTableModel modelo = (DefaultTableModel) tblaEstudiante.getModel();
-        modelo.setRowCount(0);
-        estudianteController listar = new estudianteController();
-        List<Estudiante> lista = listar.listaEstudiante();
-        lista.forEach((element) -> modelo.addRow(new Object[]{
-            element.getIdentificaion(),
-            element.getNombre(),
-            element.getApellido(),
-            element.getEdad()}));
+  
     }
 
 

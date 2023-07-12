@@ -44,7 +44,6 @@ public class Estudiante extends Persona {
     public List Read() {
         try {
             st = cn.createStatement();
-            //ResultSet rs = st.executeQuery("SELECT*FROM estudiante");
             ResultSet rs = st.executeQuery("SELECT*FROM estudiante WHERE estado = 'A'");
             while (rs.next()) {
                 Estudiante estudiante = new Estudiante();
@@ -57,33 +56,12 @@ public class Estudiante extends Persona {
                 listaEstudiante.add(estudiante);
             }
         } catch (SQLException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
         return listaEstudiante;
     }
 
-    public Estudiante consulta() {
-        try {
-            PreparedStatement ps = cn.prepareStatement("SELECT * FROM estudiante WHERE identificacion=?");
-            ps.setString(1, "identificacion");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Estudiante estudiante = new Estudiante();
-                estudiante.setIdentificaion(rs.getString("identificacion"));
-                estudiante.setNombre(rs.getString("nombre"));
-                estudiante.setApellido(rs.getString("apellido"));
-                estudiante.setEdad(rs.getInt("edad"));
-                //   estudiante.setEstado(rs.getString("estado"));
-                //  estudiante.setId(rs.getInt("id"));
-                return estudiante;
-            }
-        } catch (SQLException e) {
-            System.out.println("Error consulta: " + e.getMessage());
-            return null;
-        }
-        return null;
 
-    }
 
     public boolean upadate() {
         try {

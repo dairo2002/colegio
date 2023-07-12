@@ -22,7 +22,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         hover();
     }
 
-    public void hover(){
+    private void hover(){
         Color estu=new Color(116,255,179);
         btnEstudiante.setBackground(estu);
         btnProfesor.setBackground(estu);

@@ -41,9 +41,5 @@ public class estudianteController {
         return estudiante.delete();
     }
 
-//    public boolean matricular(String codigo, String identificacion) {
-//        consultaEstudiante matricula = new consultaEstudiante();
-//        return matricula.matricular(codigo, identificacion);
-//    }
     
 }
