@@ -7,7 +7,6 @@ package view;
 import controller.loginController;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import model.consultaLogin;
 
 /**
  *

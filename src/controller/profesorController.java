@@ -36,7 +36,7 @@ public class profesorController {
         return profe.upadate();
     }
 
-    public boolean eliminarEstudiante(int id) {
+    public boolean eliminar(int id) {
         profe.setId(id);
         return profe.delete();
     }

@@ -4,9 +4,8 @@
  */
 package view;
 
-import controller.estudianteController;
+
 import controller.profesorController;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,9 +18,9 @@ import model.Profesor;
 public class FrmProfesor extends javax.swing.JFrame {
 
     public profesorController profesor = new profesorController();
-    public List<Profesor> lista = new ArrayList<>();
+    public List<Profesor> listarProfesor;
     public int idProfesor;
-    
+
     public FrmProfesor() {
         initComponents();
         setLocationRelativeTo(this);
@@ -35,12 +34,11 @@ public class FrmProfesor extends javax.swing.JFrame {
         txtEdad.setText("");
     }
 
-    public void cargarTabla() {
+    private void cargarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tablaProfesor.getModel();
         modelo.setRowCount(0);
-//        profesorController listar = new profesorController();
-//        List<Profesor> listas = listar.listaProfesor();
-        lista = profesor.listaProfesor();
+        profesorController listar = new profesorController();
+        List<Profesor> lista = listar.listaProfesor();
         lista.forEach((element) -> modelo.addRow(new Object[]{
             element.getIdentificaion(),
             element.getNombre(),
@@ -279,50 +277,57 @@ public class FrmProfesor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-//        if (!txtIdentificacion.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty() && !txtEdad.getText().isEmpty()) {
-//            boolean resultado = estudiante.modificar(this.idEstudiante, txtIdentificacion.getText(), txtNombre.getText(), txtApellido.getText(), Integer.parseInt(txtEdad.getText()));
-//            if (resultado) {
-//                JOptionPane.showMessageDialog(null, "Los datos han sido modificados");
-//                limpiar();
-//                cargarTabla();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Los datos no fueron modificados");
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios,Seleccione un elemento de la tabla");
-//        }
+        if (!txtIdentificacion.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty() && !txtEdad.getText().isEmpty()) {
+            boolean resultado = profesor.actualizar(this.idProfesor, txtIdentificacion.getText(), txtNombre.getText(), txtApellido.getText(), Integer.parseInt(txtEdad.getText()));
+            if (resultado) {
+                JOptionPane.showMessageDialog(null, "Los datos han sido modificados");
+                limpiar();
+                cargarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "Los datos no fueron modificados");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios,Seleccione un elemento de la tabla");
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-//        if (!txtIdentificacion.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty() && !txtEdad.getText().isEmpty()) {
-//            boolean resultado = estudiante.eliminar(this.idEstudiante);
-//            if (resultado) {
-//                JOptionPane.showMessageDialog(null, "Estudiante eliminado");
-//                cargarTabla();
-//                limpiar();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Error no se puedo eliminar el estdudiante");
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios,Seleccione un elemento de la tabla");
-//        }
+        if (!txtIdentificacion.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty() && !txtEdad.getText().isEmpty()) {
+            boolean resultado = profesor.eliminar(this.idProfesor);
+            if (resultado) {
+                JOptionPane.showMessageDialog(null, "Estudiante eliminado");
+                cargarTabla();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error no se puedo eliminar el estdudiante");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios,Seleccione un elemento de la tabla");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tablaProfesorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProfesorMouseClicked
-        //int seleccionar = tblaEstudiante.getSelectedRow();
         int seleccionar = tablaProfesor.rowAtPoint(evt.getPoint());
         /**
-         * Cargar los datos en los campos de texto. cuando el usuario seleccione
-         * un elemto de la tabla va a tomar los 5 campos
-         * id,identificacion,nombre,apellido,edad se procede a hacer las
+         * Cargar los datos en los campos de texto.
+         *
+         * @listarProfesor: Treamos la list<profesor>
+         * @profesor: es el objecto de la instancia del contoller profesor
+         * @listaProfesor: es el metodo del que esta en controlador profesor y
+         * trae los datos almacenados en la lista.
+         *
+         * cuando el usuario seleccione un elemto de la tabla va a tomar los 5
+         * campos id,identificacion,nombre,apellido,edad se procede a hacer las
          * validaciones para que los datos cargen en cada campo de texto.
          *
-         * @id: el id es oculto en la tabla, se crea una variable idEstudiante,
-         * que va hacer como remplazo de id. Valimos que cuando el usuario
-         * seleccione un elemento de la tabla, por medio de la lista se le pasa
-         * el id. Los otros campos, con los setText se hace los datos.
+         * @id: el id es oculto en la tabla, se crea una variable llamada
+         * idProfesor, que va hacer como remplazo del id. Valimos que cuando el
+         * usuario seleccione un elemento de la tabla, por medio de la lista se
+         * le pasa el id. Los otros campos, con los setText se muestran los
+         * datos.
          */
-        idProfesor = lista.get(seleccionar).getId();
+        listarProfesor = profesor.listaProfesor();
+        idProfesor = listarProfesor.get(seleccionar).getId();
         txtIdentificacion.setText(String.valueOf(tablaProfesor.getValueAt(seleccionar, 0)));
         txtNombre.setText(String.valueOf(tablaProfesor.getValueAt(seleccionar, 1)));
         txtApellido.setText(String.valueOf(tablaProfesor.getValueAt(seleccionar, 2)));
